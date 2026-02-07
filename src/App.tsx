@@ -4,7 +4,7 @@ import Experiences from "./components/Experiences";
 import userIcon from "./assets/user-icon.png";
 import { SocialMedias } from "./components/SocialMedias";
 
-import { user, experiences, drawings, socialMedia } from "./Users/kubra-gonen";
+import { user, experiences, drawings, socialMedia } from "./users/kubra-gonen";
 import Drawing from "./components/Drawing/Drawing";
 
 function App() {

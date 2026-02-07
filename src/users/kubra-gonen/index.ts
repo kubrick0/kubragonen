@@ -11,19 +11,12 @@ import linkedinIcon from "../../assets/linkedin.png";
 import instagramIcon from "../../assets/instagram.png";
 import gmailIcon from "../../assets/gmail.png";
 
-import ladyDimitrescu from "../../assets/lady_demistrecu.png";
 import jinx from "../../assets/jinx.jpg";
 import barrels from "../../assets/barrels.png";
-import branch from "../../assets/branch.jpg";
-import forest from "../../assets/forest.png";
-import pear from "../../assets/pear.webp";
-import player from "../../assets/player.png";
 import randomPeople from "../../assets/random-people.png";
-import random from "../../assets/random.png";
 import trees from "../../assets/trees.webp";
 import turkishWithFez from "../../assets/turkish_with_fez.jpg";
 import turkish from "../../assets/turkish.webp";
-import woman from "../../assets/woman.png";
 import characterDesign from "../../assets/character_design.png";
 import characterDesign2 from "../../assets/character_design_2.png";
 
@@ -127,39 +120,16 @@ export const drawings: ArtProps[] = [
     image: turkish,
   },
   {
-    image: ladyDimitrescu,
-  },
-  {
     image: jinx,
   },
   {
     image: barrels,
   },
   {
-    image: branch,
-  },
-  {
-    image: forest,
-  },
-
-  {
-    image: player,
-  },
-  {
     image: randomPeople,
   },
 
   {
-    image: random,
-  },
-  {
-    image: pear,
-  },
-  {
     image: trees,
-  },
-
-  {
-    image: woman,
-  },
+  }
 ];
