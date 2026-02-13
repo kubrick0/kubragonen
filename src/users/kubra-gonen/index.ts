@@ -19,6 +19,11 @@ import turkishWithFez from "../../assets/turkish_with_fez.jpg";
 import turkish from "../../assets/turkish.webp";
 import characterDesign from "../../assets/character_design.png";
 import characterDesign2 from "../../assets/character_design_2.png";
+import strongGuy from "../../assets/strong_guy_1.jpeg";
+import strongGuy2 from "../../assets/strong_guy_2.jpeg";
+import detective from "../../assets/detective_guy.jpeg";
+import manyCharacters from "../../assets/many_characters.jpeg";
+
 
 export const education: Education[] = [
   {
@@ -108,6 +113,18 @@ export const user: UserProps = {
 
 export const drawings: ArtProps[] = [
   {
+    image: strongGuy,
+  },
+  {
+    image: strongGuy2,
+  },
+  {
+    image: detective,
+  },
+  {
+    image: manyCharacters,
+  },
+  {
     image: characterDesign,
   },
   {
@@ -128,8 +145,7 @@ export const drawings: ArtProps[] = [
   {
     image: randomPeople,
   },
-
   {
     image: trees,
-  }
+  },
 ];
