@@ -11,20 +11,6 @@ import linkedinIcon from "../../assets/linkedin.png";
 import instagramIcon from "../../assets/instagram.png";
 import gmailIcon from "../../assets/gmail.png";
 
-import jinx from "../../assets/jinx.jpg";
-import barrels from "../../assets/barrels.png";
-import randomPeople from "../../assets/random-people.png";
-import trees from "../../assets/trees.webp";
-import turkishWithFez from "../../assets/turkish_with_fez.jpg";
-import turkish from "../../assets/turkish.webp";
-import characterDesign from "../../assets/character_design.png";
-import characterDesign2 from "../../assets/character_design_2.png";
-import strongGuy from "../../assets/strong_guy_1.jpeg";
-import strongGuy2 from "../../assets/strong_guy_2.jpeg";
-import detective from "../../assets/detective_guy.jpeg";
-import manyCharacters from "../../assets/many_characters.jpeg";
-
-
 export const education: Education[] = [
   {
     school: "Hacettepe University",
@@ -111,41 +97,12 @@ export const user: UserProps = {
   `,
 };
 
-export const drawings: ArtProps[] = [
-  {
-    image: strongGuy,
-  },
-  {
-    image: strongGuy2,
-  },
-  {
-    image: detective,
-  },
-  {
-    image: manyCharacters,
-  },
-  {
-    image: characterDesign,
-  },
-  {
-    image: characterDesign2,
-  },
-  {
-    image: turkishWithFez,
-  },
-  {
-    image: turkish,
-  },
-  {
-    image: jinx,
-  },
-  {
-    image: barrels,
-  },
-  {
-    image: randomPeople,
-  },
-  {
-    image: trees,
-  },
-];
+export const drawings: ArtProps[] = (
+  Object.values(
+    import.meta.glob("./assets/*.{png,jpeg,jpg,webp,gif,svg}", {
+      eager: true,
+    }),
+  ) as Array<{ default: string }>
+).map((module) => ({
+  image: module.default,
+}));
