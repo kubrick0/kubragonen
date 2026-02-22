@@ -8,7 +8,7 @@
     "deploy": "gh-pages -d dist",
     "deploy:cloudflare": "npm run build && npx wrangler pages deploy dist",
     "dev": "vite",
-    "build": "tsx scripts/inject-env.ts && tsc -b && vite build",
+    "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "db:seed": "tsx scripts/seed-supabase.ts"
