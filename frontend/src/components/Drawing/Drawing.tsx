@@ -1,6 +1,5 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import { modalStyle, StyledImage } from './styles';
@@ -21,6 +20,8 @@ export default function BasicCard(drawingProps: ArtProps) {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
+        "&:focus": { outline: "none" },
+        "&:focus-visible": { outline: "none" },
       }}
     >
       <CardContent
@@ -31,13 +32,6 @@ export default function BasicCard(drawingProps: ArtProps) {
           justifyContent: "center",
         }}
       >
-        <Typography
-          gutterBottom
-          sx={{ color: "text.secondary", fontSize: 25, fontWeight: "bold" }}
-        >
-          {drawingProps.title}
-        </Typography>
-
         <StyledImage
           src={drawingProps.image}
           alt="image"
@@ -46,13 +40,13 @@ export default function BasicCard(drawingProps: ArtProps) {
           style={{ cursor: "pointer" }}
         />
 
-        <Modal
-          open={open}
-          onClose={handleClose}
-          className="flex flex-row gap-2"
-        >
-          <Box sx={modalStyle}>
-            <img className="w-[500px]" src={drawingProps.image} alt="image" />
+        <Modal open={open} onClose={handleClose}>
+          <Box sx={{ ...modalStyle, '&:focus': { outline: 'none' } }}>
+            <img
+              src={drawingProps.image}
+              alt="image"
+              style={{ outline: 'none' }}
+            />
           </Box>
         </Modal>
       </CardContent>

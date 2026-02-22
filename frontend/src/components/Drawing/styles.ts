@@ -9,6 +9,12 @@ export const StyledImage = styled("img")({
   "&:hover": {
     transform: "scale(1.05)",
   },
+  "&:focus": {
+    outline: "none",
+  },
+  "&:focus-visible": {
+    outline: "none",
+  },
   maxWidth: "500px",
   maxHeight: "500px",
 });
@@ -20,9 +26,10 @@ export const modalStyle = {
   transform: 'translate(-50%, -50%)',
   maxWidth: '90vw',
   maxHeight: '90vh',
-  bgcolor: 'background.paper',
-  boxShadow: 24,
+  bgcolor: 'transparent',
+  boxShadow: 'none',
   border: 'none',
+  outline: 'none',
   overflow: 'auto',
-  p: 2,
+  p: 0,
 };
