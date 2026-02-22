@@ -42,6 +42,7 @@ export default function BasicCard(drawingProps: ArtProps) {
           src={drawingProps.image}
           alt="image"
           onClick={handleOpen}
+          draggable={false}
           style={{ cursor: "pointer" }}
         />
 
