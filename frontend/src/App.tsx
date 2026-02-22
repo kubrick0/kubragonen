@@ -1,16 +1,54 @@
 import './App.css'
-
+import { useState } from "react";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  rectSortingStrategy,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 import Experiences from "./components/Experiences";
 import userIcon from "./assets/user-icon.png";
 import { SocialMedias } from "./components/SocialMedias";
 
 import { user, experiences, drawings, socialMedia } from "./users/kubra-gonen";
-import Drawing from "./components/Drawing/Drawing";
+import DraggableDrawing from "./components/Drawing/DraggableDrawing";
 
 function App() {
+  const [order, setOrder] = useState<number[]>(() =>
+    drawings.map((_, i) => i)
+  );
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: { distance: 8 },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (over && active.id !== over.id) {
+      setOrder((prev) => {
+        const oldIndex = prev.indexOf(active.id as number);
+        const newIndex = prev.indexOf(over.id as number);
+        return arrayMove(prev, oldIndex, newIndex);
+      });
+    }
+  };
+
   return (
     <div className="flex">
-      {/* Main content */}
       <div className="w-full p-6 justify-center items-center">
         <h1 className="bg-gray-700 bg-clip-text text-5xl font-extrabold text-transparent ...">
           {user.name}
@@ -40,11 +78,24 @@ function App() {
 
         <h2 className="text-gray-500 text-2xl">Portfolio</h2>
 
-        <div className="grid grid-cols-2 gap-4 justify-items-center">
-          {drawings.map((drawing) => (
-            <Drawing image={drawing.image} title={drawing.title} />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={order} strategy={rectSortingStrategy}>
+            <div className="grid grid-cols-2 gap-4 justify-items-center">
+              {order.map((drawingIndex) => (
+                <DraggableDrawing
+                  key={drawingIndex}
+                  id={drawingIndex}
+                  image={drawings[drawingIndex].image}
+                  title={drawings[drawingIndex].title}
+                />
+              ))}
+            </div>
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   );
