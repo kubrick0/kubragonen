@@ -1,18 +1,18 @@
 export type PortfolioItem = {
-  id: number;
+  id: string;
   user: string;
   name: string;
-  image: string;
+  path: string;
   context: string;
   position: number;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type PortfolioCreate = {
   user: string;
   name: string;
-  image: string | Buffer;
+  path: string;
   context?: string;
   position?: number;
 };

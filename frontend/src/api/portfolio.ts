@@ -4,7 +4,7 @@ export type PortfolioItem = {
   id: string;
   user: string;
   name: string;
-  image: string;
+  path: string;
   context: string;
   position: number;
   createdAt: string;
@@ -18,8 +18,4 @@ export async function fetchPortfolio(user?: string): Promise<PortfolioItem[]> {
   const res = await fetch(url);
   if (!res.ok) throw new Error("Failed to fetch portfolio");
   return res.json();
-}
-
-export function portfolioImageSrc(base64: string, mime = "image/png"): string {
-  return `data:${mime};base64,${base64}`;
 }

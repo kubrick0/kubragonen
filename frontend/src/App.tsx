@@ -20,11 +20,7 @@ import userIcon from "./assets/user-icon.png";
 import { SocialMedias } from "./components/SocialMedias";
 import { user, experiences, socialMedia } from "./users/kubra-gonen";
 import DraggableDrawing from "./components/Drawing/DraggableDrawing";
-import {
-  fetchPortfolio,
-  portfolioImageSrc,
-  type PortfolioItem,
-} from "./api/portfolio";
+import { fetchPortfolio, type PortfolioItem } from "./api/portfolio";
 
 const PORTFOLIO_USER = "kubra-gonen";
 
@@ -113,7 +109,7 @@ function App() {
                     <DraggableDrawing
                       key={item.id}
                       id={index}
-                      image={portfolioImageSrc(item.image)}
+                      image={item.path}
                     />
                   );
                 })}

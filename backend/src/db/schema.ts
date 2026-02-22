@@ -6,20 +6,7 @@ import {
   integer,
   timestamp,
   uuid,
-  customType,
 } from "drizzle-orm/pg-core";
-
-const bytea = customType<{ data: Buffer; driverParam: Buffer }>({
-  dataType() {
-    return "bytea";
-  },
-  toDriver(value: Buffer) {
-    return value;
-  },
-  fromDriver(value: unknown) {
-    return value instanceof Buffer ? value : Buffer.from(value as ArrayLike<number>);
-  },
-});
 
 const pool = new Pool({
   host: process.env.DATABASE_HOST ?? "localhost",
@@ -41,7 +28,7 @@ export const portfolio = pgTable("portfolio", {
     .defaultNow(),
   user: text("user").notNull(),
   name: text("name").notNull(),
-  image: bytea("image").notNull(),
+  path: text("path").notNull(),
   context: text("context").default(""),
   position: integer("position").notNull().default(0),
 });
