@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3001";
+import { supabase } from "../lib/supabase";
 
 export type PortfolioItem = {
   id: string;
@@ -12,10 +12,31 @@ export type PortfolioItem = {
 };
 
 export async function fetchPortfolio(user?: string): Promise<PortfolioItem[]> {
-  const url = user
-    ? `${API_BASE}/portfolio?user=${encodeURIComponent(user)}`
-    : `${API_BASE}/portfolio`;
-  const res = await fetch(url);
-  if (!res.ok) throw new Error("Failed to fetch portfolio");
-  return res.json();
+  let query = supabase
+    .from("portfolio")
+    .select("*")
+    .order("position", { ascending: true })
+    .order("id", { ascending: true });
+
+  if (user) {
+    query = query.eq("user", user);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    console.error("Supabase portfolio error:", error);
+    throw new Error(error.message);
+  }
+
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    user: row.user,
+    name: row.name,
+    path: row.path,
+    context: row.context ?? "",
+    position: row.position ?? 0,
+    createdAt: row.created_at,
+    updatedAt: row.updated_at,
+  }));
 }
