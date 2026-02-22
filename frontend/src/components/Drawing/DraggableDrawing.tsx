@@ -28,7 +28,7 @@ export default function DraggableDrawing({ id, ...drawingProps }: Props) {
       style={style}
       {...attributes}
       {...listeners}
-      className="select-none cursor-grab active:cursor-grabbing touch-none"
+      className="select-none cursor-grab active:cursor-grabbing touch-none outline-none focus:outline-none focus-visible:outline-none"
     >
       <Drawing {...drawingProps} />
     </div>
