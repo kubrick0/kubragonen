@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   DndContext,
   closestCenter,
@@ -18,14 +18,31 @@ import {
 import Experiences from "./components/Experiences";
 import userIcon from "./assets/user-icon.png";
 import { SocialMedias } from "./components/SocialMedias";
-
-import { user, experiences, drawings, socialMedia } from "./users/kubra-gonen";
+import { user, experiences, socialMedia } from "./users/kubra-gonen";
 import DraggableDrawing from "./components/Drawing/DraggableDrawing";
+import {
+  fetchPortfolio,
+  portfolioImageSrc,
+  type PortfolioItem,
+} from "./api/portfolio";
+
+const PORTFOLIO_USER = "kubra-gonen";
 
 function App() {
-  const [order, setOrder] = useState<number[]>(() =>
-    drawings.map((_, i) => i)
-  );
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  const [order, setOrder] = useState<number[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchPortfolio(PORTFOLIO_USER)
+      .then((items) => {
+        setPortfolioItems(items);
+        setOrder(items.map((_, i) => i));
+      })
+      .catch((err) => setError(err instanceof Error ? err.message : "Erro"))
+      .finally(() => setLoading(false));
+  }, []);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -78,24 +95,32 @@ function App() {
 
         <h2 className="text-gray-500 text-2xl">Portfolio</h2>
 
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext items={order} strategy={rectSortingStrategy}>
-            <div className="grid grid-cols-2 gap-4 justify-items-center">
-              {order.map((drawingIndex) => (
-                <DraggableDrawing
-                  key={drawingIndex}
-                  id={drawingIndex}
-                  image={drawings[drawingIndex].image}
-                  title={drawings[drawingIndex].title}
-                />
-              ))}
-            </div>
-          </SortableContext>
-        </DndContext>
+        {error && <p className="text-red-500">{error}</p>}
+        {loading ? (
+          <p className="text-gray-500">Loading portfolio...</p>
+        ) : (
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext items={order} strategy={rectSortingStrategy}>
+              <div className="grid grid-cols-2 gap-4 justify-items-center">
+                {order.map((index) => {
+                  const item = portfolioItems[index];
+                  if (!item) return null;
+                  return (
+                    <DraggableDrawing
+                      key={item.id}
+                      id={index}
+                      image={portfolioImageSrc(item.image)}
+                    />
+                  );
+                })}
+              </div>
+            </SortableContext>
+          </DndContext>
+        )}
       </div>
     </div>
   );

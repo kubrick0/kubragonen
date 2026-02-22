@@ -1,4 +1,3 @@
-import { ArtProps } from "../../components/Drawing/types";
 import { ExperienceProps } from "../../components/Experiences/types";
 import { Language } from "../../components/SideMenu/types";
 
@@ -97,12 +96,3 @@ export const user: UserProps = {
   `,
 };
 
-export const drawings: ArtProps[] = (
-  Object.values(
-    import.meta.glob("./assets/*.{png,jpeg,jpg,webp,gif,svg}", {
-      eager: true,
-    }),
-  ) as Array<{ default: string }>
-).map((module) => ({
-  image: module.default,
-}));
